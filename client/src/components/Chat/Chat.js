@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
-import io from "socket.io-client";
+import io from 'socket.io-client';
 import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
@@ -9,10 +9,10 @@ import './Chat.css';
 
 const BACKENDDOMAIN = 'http://localhost:5000';
 
-let socket = io(BACKENDDOMAIN);
+const socket = io(BACKENDDOMAIN);
 
 const Chat = ({ location }) => {
-  const { name, room } = queryString.parse(location.search);
+  const { name, room } = queryString.parse(location?.search);
 
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
@@ -24,21 +24,22 @@ const Chat = ({ location }) => {
         alert(error);
       }
     });
-    socket.on('message', message => {
-      setMessages(messages => [...messages, message]);
+    socket.on('message', (newMesg) => {
+      setMessages((prevData) => [...prevData, newMesg]);
     });
 
-    socket.on("roomData", ({ users }) => {
-      setUsers(users);
+    socket.on('roomData', ({ usersData }) => {
+      setUsers(usersData);
     });
   }, []);
 
   const sendMessage = (event) => {
     event.preventDefault();
+    console.log('hello mesg', message)
     if (message) {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
-  }
+  };
 
   return (
     <div className="outerContainer">
@@ -52,14 +53,16 @@ const Chat = ({ location }) => {
             placeholder="Type a message..."
             value={message}
             onChange={({ target: { value } }) => setMessage(value)}
-            onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') sendMessage(event);
+            }}
           />
-          <button className="sendButton" onClick={e => sendMessage(e)}>Send</button>
+          <button type="button" className="sendButton" onClick={(e) => sendMessage(e)}>Send</button>
         </form>
       </div>
       <TextContainer users={users} />
     </div>
   );
-}
+};
 
 export default Chat;

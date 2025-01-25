@@ -1,0 +1,18 @@
+{
+  "name": "your-project",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev:client": "cd client && export NODE_OPTIONS=--openssl-legacy-provider && yarn start",
+    "dev:server": "cd server && yarn start",
+    "build:client": "cd client && export NODE_OPTIONS=--openssl-legacy-provider && yarn build",
+    "build:server": "cd server && yarn build",
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+} 
