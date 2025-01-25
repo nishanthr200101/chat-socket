@@ -20,9 +20,9 @@ const CodeBlock = ({ code }) => {
       <button
         onClick={handleCopy}
         style={{
-          position: 'absolute',
-          top: '10px',
-          right: '10px',
+          // position: 'absolute',
+          // top: '10px',
+          // right: '10px',
           padding: '5px 10px',
           backgroundColor: '#007bff',
           color: '#fff',
@@ -39,20 +39,11 @@ const CodeBlock = ({ code }) => {
 };
 
 // Usage Example
-const App = () => {
-  const codeSnippet = `
-const PORT = 5000;
-server.listen(PORT, () => {
-  console.log(\`Server is running on port \${PORT}\`);
-});
-`;
+const InfoBar = ({room}) => (
+  <div style={{ padding: '20px' }}>
+    <h3>Copy and Share the code with ur buddiess...!!!</h3>
+    <CodeBlock code={room} />
+  </div>
+);
 
-  return (
-    <div style={{ padding: '20px' }}>
-      <h1>Code with Copy Button</h1>
-      <CodeBlock code={codeSnippet} />
-    </div>
-  );
-};
-
-export default App;
+export default InfoBar;

@@ -42,3 +42,16 @@ yarn-error.log*
 ehthumbs.db
 Thumbs.db
 
+# Build outputs
+/build
+/dist
+
+# IDE files
+.idea
+.vscode
+*.swp
+*.swo
+
+# DO NOT ignore yarn.lock
+# !yarn.lock
+
